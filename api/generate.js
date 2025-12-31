@@ -72,7 +72,8 @@ Constraints:
 - Use realistic 2024/2025 UK prices (e.g., chicken breast £6-8/kg, onions £0.80-1/kg, rice £1.50-2/kg, milk £1.15-1.50/L)
 - The weeklyTotal MUST be the exact sum of all item prices in the shopping list
 - monthlyTotal = weeklyTotal × 4.33 (rounded to 2 decimal places)
-- If the calculated total exceeds budget, adjust the meal plan to use cheaper alternatives`;
+- If the calculated total exceeds budget, adjust the meal plan to use cheaper alternatives
+- Ensure that the shopping list items align with the meals in the weekly schedule`;
 
 export default async function handler(req, res) {
   // Handle CORS
