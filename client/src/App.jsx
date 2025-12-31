@@ -5,6 +5,29 @@ import MealPlanDisplay from './components/MealPlanDisplay';
 import LoadingScreen from './components/LoadingScreen';
 import SavedPlans from './components/SavedPlans';
 
+// LocalStorage helper functions for Vercel deployment
+const STORAGE_KEY = 'chefai_saved_plans';
+
+const getLocalPlans = () => {
+  try {
+    const plans = localStorage.getItem(STORAGE_KEY);
+    return plans ? JSON.parse(plans) : [];
+  } catch (e) {
+    console.error('Failed to read from localStorage:', e);
+    return [];
+  }
+};
+
+const saveLocalPlans = (plans) => {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(plans));
+    return true;
+  } catch (e) {
+    console.error('Failed to save to localStorage:', e);
+    return false;
+  }
+};
+
 function App() {
   const [view, setView] = useState('home'); // home, form, loading, result, saved
   const [currentPlan, setCurrentPlan] = useState(null);
@@ -13,18 +36,9 @@ function App() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchSavedPlans();
+    // Load plans from localStorage
+    setSavedPlans(getLocalPlans());
   }, []);
-
-  const fetchSavedPlans = async () => {
-    try {
-      const res = await fetch('/api/plans');
-      const data = await res.json();
-      if (data.success) setSavedPlans(data.plans);
-    } catch (e) {
-      console.error('Failed to fetch plans:', e);
-    }
-  };
 
   const handleFormSubmit = async (profile) => {
     setCurrentProfile(profile);
@@ -55,19 +69,19 @@ function App() {
 
   const handleSavePlan = async (name) => {
     try {
-      const res = await fetch('/api/plans', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name,
-          userProfile: currentProfile,
-          planData: currentPlan
-        })
-      });
+      const newPlan = {
+        id: Date.now(),
+        name,
+        user_profile: currentProfile,
+        plan_data: currentPlan,
+        created_at: new Date().toISOString()
+      };
       
-      const data = await res.json();
-      if (data.success) {
-        fetchSavedPlans();
+      const plans = getLocalPlans();
+      plans.unshift(newPlan); // Add to beginning
+      
+      if (saveLocalPlans(plans)) {
+        setSavedPlans(plans);
         return true;
       }
     } catch (e) {
@@ -76,26 +90,23 @@ function App() {
     return false;
   };
 
-  const handleLoadPlan = async (id) => {
-    try {
-      const res = await fetch(`/api/plans/${id}`);
-      const data = await res.json();
-      if (data.success) {
-        setCurrentPlan(data.plan.plan_data);
-        setCurrentProfile(data.plan.user_profile);
-        setView('result');
-      }
-    } catch (e) {
-      console.error('Failed to load plan:', e);
+  const handleLoadPlan = (id) => {
+    const plans = getLocalPlans();
+    const plan = plans.find(p => p.id === id);
+    
+    if (plan) {
+      setCurrentPlan(plan.plan_data);
+      setCurrentProfile(plan.user_profile);
+      setView('result');
     }
   };
 
-  const handleDeletePlan = async (id) => {
-    try {
-      await fetch(`/api/plans/${id}`, { method: 'DELETE' });
-      fetchSavedPlans();
-    } catch (e) {
-      console.error('Failed to delete:', e);
+  const handleDeletePlan = (id) => {
+    const plans = getLocalPlans();
+    const filteredPlans = plans.filter(p => p.id !== id);
+    
+    if (saveLocalPlans(filteredPlans)) {
+      setSavedPlans(filteredPlans);
     }
   };
 
