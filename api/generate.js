@@ -297,7 +297,7 @@ Remember:
 Generate the complete meal plan now with vivid, appetizing descriptions!`;
 
     const model = genAI.getGenerativeModel({ 
-      model: 'gemini-1.5-flash',
+      model: 'gemma-3-27b-it',
       generationConfig: {
         temperature: 0.9, // Higher temperature for more creativity
         topP: 0.95,
