@@ -11,12 +11,14 @@ const CATEGORY_ICONS = {
   produce: '🥬',
   dairy: '🥛',
   meat: '🥩',
+  protein: '🍗',
   pantry: '🥫',
   frozen: '🧊',
   bakery: '🍞',
   beverages: '🥤',
   eggs: '🥚',
   grains: '🌾',
+  spices: '🌶️',
   other: '📦'
 };
 
@@ -86,13 +88,28 @@ export default function MealPlanDisplay({ plan, profile, onSave }) {
             <p className="text-emerald-100 text-lg mb-4">
               {plan.strategy?.description}
             </p>
+            {plan.strategy?.flavorProfile && (
+              <p className="text-white/90 mb-4 italic">
+                🍴 {plan.strategy.flavorProfile}
+              </p>
+            )}
             {plan.strategy?.keyNutrients && (
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 mb-4">
                 {plan.strategy.keyNutrients.map((n, i) => (
                   <span key={i} className="px-4 py-1.5 bg-white/20 rounded-full text-sm font-medium">
                     {n}
                   </span>
                 ))}
+              </div>
+            )}
+            {plan.strategy?.chefTips && plan.strategy.chefTips.length > 0 && (
+              <div className="bg-white/10 rounded-xl p-4 mt-4">
+                <h4 className="font-semibold mb-2">👨‍🍳 Chef Tips</h4>
+                <ul className="space-y-1 text-sm text-emerald-100">
+                  {plan.strategy.chefTips.map((tip, i) => (
+                    <li key={i}>• {tip}</li>
+                  ))}
+                </ul>
               </div>
             )}
           </div>
@@ -205,6 +222,31 @@ export default function MealPlanDisplay({ plan, profile, onSave }) {
                   
                   {expandedRecipe === i && (
                     <div className="p-6 pt-0 space-y-5">
+                      {/* Cuisine and flavor notes */}
+                      <div className="flex flex-wrap gap-3">
+                        {recipe.cuisine && (
+                          <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+                            🌍 {recipe.cuisine}
+                          </span>
+                        )}
+                        {recipe.protein && (
+                          <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
+                            💪 {recipe.protein} protein
+                          </span>
+                        )}
+                        {recipe.cookTime && (
+                          <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm font-medium">
+                            🍳 {recipe.cookTime} cook time
+                          </span>
+                        )}
+                      </div>
+                      
+                      {recipe.flavorNotes && (
+                        <p className="text-sm text-amber-700 bg-amber-50 px-4 py-3 rounded-xl italic">
+                          ✨ {recipe.flavorNotes}
+                        </p>
+                      )}
+                      
                       {recipe.nutrients && (
                         <p className="text-sm text-emerald-700 bg-emerald-50 px-4 py-3 rounded-xl">
                           <strong>Key Nutrients:</strong> {recipe.nutrients}
@@ -235,6 +277,14 @@ export default function MealPlanDisplay({ plan, profile, onSave }) {
                           </ol>
                         </div>
                       </div>
+                      
+                      {recipe.chefSecrets && (
+                        <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4 mt-4">
+                          <p className="text-amber-800 font-medium">
+                            👨‍🍳 <strong>Chef's Secret:</strong> {recipe.chefSecrets}
+                          </p>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
@@ -340,19 +390,56 @@ export default function MealPlanDisplay({ plan, profile, onSave }) {
                 </div>
               )}
 
-              {plan.financialBreakdown.savingsTips && (
+              {(plan.financialBreakdown.savingsTips || plan.financialBreakdown.moneySavingHacks) && (
                 <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-200">
                   <h4 className="font-bold text-amber-800 mb-4 flex items-center gap-2 text-lg">
                     <span className="text-2xl">💡</span> Money-Saving Tips
                   </h4>
                   <ul className="space-y-3">
-                    {plan.financialBreakdown.savingsTips.map((tip, i) => (
+                    {(plan.financialBreakdown.savingsTips || plan.financialBreakdown.moneySavingHacks).map((tip, i) => (
                       <li key={i} className="text-amber-700 flex items-start gap-3">
                         <span className="text-amber-500 font-bold">•</span>
                         {tip}
                       </li>
                     ))}
                   </ul>
+                </div>
+              )}
+              
+              {/* Meal Prep Guide */}
+              {plan.mealPrepGuide && (
+                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-200">
+                  <h4 className="font-bold text-blue-800 mb-4 flex items-center gap-2 text-lg">
+                    <span className="text-2xl">📋</span> Meal Prep Guide
+                  </h4>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {plan.mealPrepGuide.sunday && (
+                      <div>
+                        <h5 className="font-semibold text-blue-700 mb-2">🗓️ Sunday Prep</h5>
+                        <ul className="space-y-2">
+                          {plan.mealPrepGuide.sunday.map((item, i) => (
+                            <li key={i} className="text-blue-600 flex items-start gap-2">
+                              <span className="text-blue-400">•</span>
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                    {plan.mealPrepGuide.weeknight && (
+                      <div>
+                        <h5 className="font-semibold text-blue-700 mb-2">⚡ Weeknight Tips</h5>
+                        <ul className="space-y-2">
+                          {plan.mealPrepGuide.weeknight.map((item, i) => (
+                            <li key={i} className="text-blue-600 flex items-start gap-2">
+                              <span className="text-blue-400">•</span>
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
                 </div>
               )}
             </div>

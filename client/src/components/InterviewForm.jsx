@@ -295,6 +295,8 @@ export default function InterviewForm({ onSubmit }) {
 
   const handleNext = () => {
     if (isLast) {
+      // Auto-save profile before submitting
+      localStorage.setItem('chefai-profile', JSON.stringify(form));
       onSubmit(form);
     } else {
       setStep(step + 1);
