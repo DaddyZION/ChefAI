@@ -117,11 +117,42 @@ YOUR MISSION: Create a Weekly Meal Plan that is:
 3. **Budget Smart** - Stretch every dollar through clever techniques
 4. **Zero Waste** - Cross-utilize ingredients throughout the week
 
+STRICT USER PREFERENCE RULES (ABSOLUTELY CRITICAL - THESE ARE MANDATORY):
+1. **COOKING STYLE COMPLIANCE** (NON-NEGOTIABLE):
+   - If user chose "Quick & Easy": ALL meals must be 15 minutes or less. No exceptions.
+   - If user chose "Batch Cooking": Focus on make-ahead meals, one-pot dishes, and meal prep strategies. Cook once, eat multiple times.
+   - If user chose "Chef Style": Include complex techniques, multiple components, gourmet preparations. Show off culinary skills.
+
+2. **CUISINE PREFERENCE COMPLIANCE** (STRICT ENFORCEMENT):
+   - If user chose a specific cuisine (not "any"), at least 70% of meals MUST be from that cuisine
+   - For "any/mixed", provide diverse global cuisines but still maintain variety
+
+3. **FAVORITE INGREDIENTS** (MANDATORY INCLUSION):
+   - MUST incorporate the user's favorite ingredients throughout the week
+   - Feature at least one favorite ingredient in EVERY DAY's meals
+   - Make these ingredients the stars of multiple dishes
+
+4. **FOODS TO AVOID** (ABSOLUTE EXCLUSION):
+   - NEVER include any ingredient the user listed in dislikes/avoids
+   - This includes derivatives (e.g., if "dairy" is avoided, no milk, cheese, butter, yogurt, cream)
+   - Double-check every ingredient list before finalizing
+
+5. **BUDGET CONSTRAINT** (HARD LIMIT):
+   - MUST stay within or under the specified budget
+   - If calculations exceed budget, immediately revise with cheaper alternatives
+   - Be realistic with prices for the user's currency/region
+
+6. **GOAL ALIGNMENT** (OPTIMIZE FOR):
+   - Healing & Repair: Anti-inflammatory foods, high in omega-3s, antioxidants, vitamin C, zinc
+   - Weight Gain: Calorie-dense, high protein, healthy fats, frequent meals/snacks
+   - Weight Loss: High volume/low calorie, high protein for satiety, fiber-rich
+   - Energy & Vitality: Complex carbs, B vitamins, iron, consistent energy throughout day
+
 VARIETY RULES (CRITICAL - avoid repetition):
 - Never repeat the same protein two days in a row
-- Rotate cuisines throughout the week (don't do 3 Italian meals in a row)
+- Rotate cuisines throughout the week (don't do 3 Italian meals in a row) UNLESS user specifically requested that cuisine
 - Mix cooking methods: raw, roasted, sautéed, braised, grilled
-- Alternate between quick meals and more involved cooking based on day
+- Alternate between quick meals and more involved cooking based on user's selected cooking style
 - Include at least 3 different grains/starches across the week
 - Feature at least 7 different vegetables
 - Use herbs and spices from at least 4 different cuisine traditions
@@ -274,25 +305,47 @@ export default async function handler(req, res) {
 CREATE A UNIQUE MEAL PLAN (Variety Seed: ${randomSeed})
 
 **Season:** ${season} - use seasonal produce!
-**Suggested Theme Direction:** ${randomTheme} (but adapt to user preferences)
+**Suggested Theme Direction:** ${randomTheme} (but user preferences override this)
 
-**User Profile:**
+**USER PROFILE (STRICT REQUIREMENTS - MUST FOLLOW):**
+
+📊 **Biometrics & Goal:**
 - Weight: ${profile.weight} ${profile.weightUnit}
 - Height: ${profile.height} ${profile.heightUnit}  
-- Primary Goal: ${profile.goal}
-- Budget: ${profile.budget} ${profile.currency} per ${profile.budgetPeriod}
-- Cooking Style: ${profile.cookingStyle}
-- Cuisine Preference: ${profile.cuisine}
+- PRIMARY GOAL: ${profile.goal} ← OPTIMIZE ALL MEALS FOR THIS GOAL
 
-**Loves:** ${profile.favorites || 'No specific preferences'}
-**Avoids:** ${profile.dislikes || 'Nothing specific'}
+💰 **Budget (HARD CONSTRAINT):**
+- ${profile.budget} ${profile.currency} per ${profile.budgetPeriod}
+- DO NOT EXCEED THIS AMOUNT
+- Calculate exact totals and ensure they're within budget
 
-Remember:
-- Make this plan UNIQUE and DELICIOUS
-- Every meal should excite them
-- Honor their cooking style preference exactly
-- Stay within their budget
-- Include chef techniques and flavor tips
+👨‍🍳 **Cooking Style (MANDATORY COMPLIANCE):**
+- User selected: ${profile.cookingStyle}
+- ${profile.cookingStyle === 'quick' ? '⚠️ CRITICAL: ALL meals must be ready in 15 minutes or less!' : ''}
+- ${profile.cookingStyle === 'batch' ? '⚠️ CRITICAL: Focus on batch cooking, meal prep, one-pot meals. Cook once, eat multiple times!' : ''}
+- ${profile.cookingStyle === 'chef' ? '⚠️ CRITICAL: Include complex techniques, multi-component dishes, gourmet preparations!' : ''}
+
+🌍 **Cuisine Preference (STRICT REQUIREMENT):**
+- User selected: ${profile.cuisine}
+- ${profile.cuisine !== 'any' ? `⚠️ CRITICAL: At least 70% of meals MUST be ${profile.cuisine} cuisine!` : 'Provide diverse global cuisines'}
+
+❤️ **FAVORITE INGREDIENTS (MUST INCLUDE):**
+${profile.favorites ? `- ${profile.favorites}
+- ⚠️ MANDATORY: Feature these ingredients prominently throughout the week
+- ⚠️ Include at least ONE favorite in EVERY day's meals` : '- No specific favorites listed'}
+
+🚫 **FOODS TO AVOID (ABSOLUTE EXCLUSION):**
+${profile.dislikes ? `- ${profile.dislikes}
+- ⚠️ CRITICAL: NEVER include these or their derivatives
+- ⚠️ Double-check EVERY ingredient before including` : '- No specific avoidances listed'}
+
+MANDATORY CHECKLIST BEFORE RESPONDING:
+✓ Does the cooking style match user's selection (quick/batch/chef)?
+✓ Does the cuisine match user's preference (if not "any")?
+✓ Are ALL favorite ingredients featured throughout the week?
+✓ Are ALL avoided foods completely excluded (including derivatives)?
+✓ Is the total cost within the specified budget?
+✓ Does the nutrition optimize for the stated goal?
 
 Generate the complete meal plan now with vivid, appetizing descriptions!`;
 
