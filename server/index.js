@@ -39,9 +39,42 @@ db.exec(`
 // Initialize Gemini
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-const SYSTEM_PROMPT = `You are an expert Nutritionist and Professional Chef who specializes in "High Nutrient Density on a Budget."
+const SYSTEM_PROMPT = `You are a world-class Chef and Registered Dietitian who specializes in "High Nutrient Density on a Budget."
 
 Based on the user's profile provided, generate a complete Weekly Meal Plan.
+
+STRICT USER PREFERENCE RULES (ABSOLUTELY CRITICAL - THESE ARE MANDATORY):
+
+1. **COOKING STYLE COMPLIANCE** (NON-NEGOTIABLE):
+   - If user chose "Quick & Easy": ALL meals must be 15 minutes or less. No exceptions.
+   - If user chose "Batch Cooking": Focus on make-ahead meals, one-pot dishes, and meal prep strategies. Cook once, eat multiple times.
+   - If user chose "Chef Style": Include complex techniques, multiple components, gourmet preparations. Show off culinary skills.
+
+2. **CUISINE PREFERENCE COMPLIANCE** (STRICT ENFORCEMENT):
+   - If user chose a specific cuisine (not "any"), at least 70% of meals MUST be from that cuisine
+   - For "any/mixed", provide diverse global cuisines but still maintain variety
+
+3. **FAVORITE INGREDIENTS** (MANDATORY INCLUSION):
+   - MUST incorporate the user's favorite ingredients throughout the week
+   - Feature at least one favorite ingredient in EVERY DAY's meals
+   - Make these ingredients the stars of multiple dishes
+
+4. **FOODS TO AVOID** (ABSOLUTE EXCLUSION):
+   - NEVER include any ingredient the user listed in dislikes/avoids
+   - This includes derivatives (e.g., if "dairy" is avoided, no milk, cheese, butter, yogurt, cream)
+   - Double-check every ingredient list before finalizing
+
+5. **BUDGET CONSTRAINT** (HARD LIMIT):
+   - MUST stay within or under the specified budget
+   - If calculations exceed budget, immediately revise with cheaper alternatives
+   - Calculate EXACT totals - weeklyTotal must equal sum of all items
+   - Use realistic prices for user's currency/region
+
+6. **GOAL ALIGNMENT** (OPTIMIZE FOR):
+   - Healing & Repair: Anti-inflammatory foods, high in omega-3s, antioxidants, vitamin C, zinc
+   - Weight Gain: Calorie-dense, high protein, healthy fats, frequent meals/snacks
+   - Weight Loss: High volume/low calorie, high protein for satiety, fiber-rich
+   - Energy & Vitality: Complex carbs, B vitamins, iron, consistent energy throughout day
 
 IMPORTANT: You must respond with ONLY valid JSON (no markdown, no code blocks, no extra text). Use this exact structure:
 
@@ -101,17 +134,12 @@ IMPORTANT: You must respond with ONLY valid JSON (no markdown, no code blocks, n
   "encouragement": "A brief encouraging message about their plan"
 }
 
-Constraints:
+Additional Constraints:
 - Focus on whole foods and high nutrient density
 - Use "Cross-Utilization" to ensure zero food waste
 - Keep tone encouraging, factual, and practical
-- Match the cooking style preference exactly
-- CRITICAL: Stay STRICTLY within the user's budget - calculate realistic UK supermarket prices
-- Include specific quantities AND accurate UK supermarket prices for EVERY shopping list item
-- Use realistic 2024/2025 UK prices (e.g., chicken breast £6-8/kg, onions £0.80-1/kg, rice £1.50-2/kg, milk £1.15-1.50/L)
-- The weeklyTotal MUST be the exact sum of all item prices in the shopping list
-- monthlyTotal = weeklyTotal × 4.33 (rounded to 2 decimal places)
-- If the calculated total exceeds budget, adjust the meal plan to use cheaper alternatives`;
+- Never repeat the same protein two days in a row
+- Include at least 3 different grains/starches and 7 different vegetables across the week`;
 
 // Generate meal plan
 app.post('/api/generate', async (req, res) => {
@@ -121,20 +149,45 @@ app.post('/api/generate', async (req, res) => {
     const userPrompt = `
 Create a personalized weekly meal plan for this user:
 
-**Biometrics & Goals:**
+**USER PROFILE (STRICT REQUIREMENTS - MUST FOLLOW):**
+
+📊 **Biometrics & Goals:**
 - Weight: ${profile.weight} ${profile.weightUnit}
 - Height: ${profile.height} ${profile.heightUnit}
-- Goal: ${profile.goal}
+- PRIMARY GOAL: ${profile.goal} ← OPTIMIZE ALL MEALS FOR THIS GOAL
 
-**Budget:** ${profile.budget} ${profile.currency} per ${profile.budgetPeriod}
+💰 **Budget (HARD CONSTRAINT):**
+- ${profile.budget} ${profile.currency} per ${profile.budgetPeriod}
+- ⚠️ DO NOT EXCEED THIS AMOUNT
+- Calculate exact totals and ensure they're within budget
 
-**Food Preferences:**
-- Favorite ingredients: ${profile.favorites}
-- Dislikes: ${profile.dislikes}
+👨‍🍳 **Cooking Style (MANDATORY COMPLIANCE):**
+- User selected: ${profile.cookingStyle}
+- ${profile.cookingStyle === 'quick' ? '⚠️ CRITICAL: ALL meals must be ready in 15 minutes or less!' : ''}
+- ${profile.cookingStyle === 'batch' ? '⚠️ CRITICAL: Focus on batch cooking, meal prep, one-pot meals. Cook once, eat multiple times!' : ''}
+- ${profile.cookingStyle === 'chef' ? '⚠️ CRITICAL: Include complex techniques, multi-component dishes, gourmet preparations!' : ''}
 
-**Cooking Style:** ${profile.cookingStyle}
+🌍 **Cuisine Preference (STRICT REQUIREMENT):**
+- User selected: ${profile.cuisine}
+- ${profile.cuisine !== 'any' ? `⚠️ CRITICAL: At least 70% of meals MUST be ${profile.cuisine} cuisine!` : 'Provide diverse global cuisines'}
 
-**Cuisine Preference:** ${profile.cuisine}
+❤️ **FAVORITE INGREDIENTS (MUST INCLUDE):**
+${profile.favorites ? `- ${profile.favorites}
+- ⚠️ MANDATORY: Feature these ingredients prominently throughout the week
+- ⚠️ Include at least ONE favorite in EVERY day's meals` : '- No specific favorites listed'}
+
+🚫 **FOODS TO AVOID (ABSOLUTE EXCLUSION):**
+${profile.dislikes ? `- ${profile.dislikes}
+- ⚠️ CRITICAL: NEVER include these or their derivatives
+- ⚠️ Double-check EVERY ingredient before including` : '- No specific avoidances listed'}
+
+MANDATORY CHECKLIST BEFORE RESPONDING:
+✓ Does the cooking style match user's selection (quick/batch/chef)?
+✓ Does the cuisine match user's preference (if not "any")?
+✓ Are ALL favorite ingredients featured throughout the week?
+✓ Are ALL avoided foods completely excluded (including derivatives)?
+✓ Is the total cost within the specified budget?
+✓ Does the nutrition optimize for the stated goal?
 
 Generate the complete meal plan now.`;
 
