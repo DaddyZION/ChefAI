@@ -80,12 +80,12 @@ export default function InterviewForm({ onSubmit }) {
                   value={form.weight}
                   onChange={(e) => updateForm('weight', e.target.value)}
                   placeholder="70"
-                  className="flex-1 px-5 py-4 text-lg rounded-2xl border-2 border-gray-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 outline-none transition-all bg-white"
+                  className="flex-1 px-4 sm:px-5 py-3 sm:py-4 text-base sm:text-lg rounded-2xl border-2 border-gray-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 outline-none transition-all bg-white min-h-[48px]"
                 />
                 <select 
                   value={form.weightUnit}
                   onChange={(e) => updateForm('weightUnit', e.target.value)}
-                  className="px-4 py-4 text-lg rounded-2xl border-2 border-gray-200 focus:border-emerald-500 outline-none bg-white cursor-pointer"
+                  className="px-3 sm:px-4 py-3 sm:py-4 text-base sm:text-lg rounded-2xl border-2 border-gray-200 focus:border-emerald-500 outline-none bg-white cursor-pointer min-h-[48px]"
                 >
                   <option value="kg">kg</option>
                   <option value="lbs">lbs</option>
@@ -100,12 +100,12 @@ export default function InterviewForm({ onSubmit }) {
                   value={form.height}
                   onChange={(e) => updateForm('height', e.target.value)}
                   placeholder="175"
-                  className="flex-1 px-5 py-4 text-lg rounded-2xl border-2 border-gray-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 outline-none transition-all bg-white"
+                  className="flex-1 px-4 sm:px-5 py-3 sm:py-4 text-base sm:text-lg rounded-2xl border-2 border-gray-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 outline-none transition-all bg-white min-h-[48px]"
                 />
                 <select 
                   value={form.heightUnit}
                   onChange={(e) => updateForm('heightUnit', e.target.value)}
-                  className="px-4 py-4 text-lg rounded-2xl border-2 border-gray-200 focus:border-emerald-500 outline-none bg-white cursor-pointer"
+                  className="px-3 sm:px-4 py-3 sm:py-4 text-base sm:text-lg rounded-2xl border-2 border-gray-200 focus:border-emerald-500 outline-none bg-white cursor-pointer min-h-[48px]"
                 >
                   <option value="cm">cm</option>
                   <option value="ft">ft</option>
@@ -123,17 +123,17 @@ export default function InterviewForm({ onSubmit }) {
                   key={g.value}
                   type="button"
                   onClick={() => updateForm('goal', g.value)}
-                  className={`p-5 rounded-2xl border-2 text-left transition-all duration-200 ${
+                  className={`p-4 sm:p-5 rounded-2xl border-2 text-left transition-all duration-200 min-h-[80px] ${
                     form.goal === g.value 
                       ? 'border-emerald-500 bg-emerald-50 shadow-lg shadow-emerald-500/20' 
                       : 'border-gray-200 hover:border-gray-300 hover:shadow-md bg-white'
                   }`}
                 >
                   <div className="flex items-center gap-3 mb-2">
-                    <span className="text-2xl">{g.emoji}</span>
-                    <span className="font-semibold text-gray-800">{g.label}</span>
+                    <span className="text-xl sm:text-2xl">{g.emoji}</span>
+                    <span className="font-semibold text-gray-800 text-sm sm:text-base">{g.label}</span>
                   </div>
-                  <p className="text-sm text-gray-500 pl-9">{g.desc}</p>
+                  <p className="text-xs sm:text-sm text-gray-500 pl-8 sm:pl-9">{g.desc}</p>
                 </button>
               ))}
             </div>
@@ -150,11 +150,11 @@ export default function InterviewForm({ onSubmit }) {
         <div className="space-y-8">
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-3">Weekly Food Budget</label>
-            <div className="flex gap-3 flex-wrap">
+            <div className="flex gap-2 sm:gap-3 flex-wrap">
               <select 
                 value={form.currency}
                 onChange={(e) => updateForm('currency', e.target.value)}
-                className="px-5 py-4 text-lg rounded-2xl border-2 border-gray-200 focus:border-emerald-500 outline-none bg-white cursor-pointer font-medium"
+                className="px-4 sm:px-5 py-3 sm:py-4 text-base sm:text-lg rounded-2xl border-2 border-gray-200 focus:border-emerald-500 outline-none bg-white cursor-pointer font-medium min-h-[48px]"
               >
                 <option value="USD">$ USD</option>
                 <option value="EUR">€ EUR</option>
@@ -167,12 +167,12 @@ export default function InterviewForm({ onSubmit }) {
                 value={form.budget}
                 onChange={(e) => updateForm('budget', e.target.value)}
                 placeholder="100"
-                className="flex-1 min-w-[150px] px-5 py-4 text-lg rounded-2xl border-2 border-gray-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 outline-none transition-all bg-white"
+                className="flex-1 min-w-[120px] sm:min-w-[150px] px-4 sm:px-5 py-3 sm:py-4 text-base sm:text-lg rounded-2xl border-2 border-gray-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 outline-none transition-all bg-white min-h-[48px]"
               />
               <select 
                 value={form.budgetPeriod}
                 onChange={(e) => updateForm('budgetPeriod', e.target.value)}
-                className="px-5 py-4 text-lg rounded-2xl border-2 border-gray-200 focus:border-emerald-500 outline-none bg-white cursor-pointer"
+                className="px-4 sm:px-5 py-3 sm:py-4 text-base sm:text-lg rounded-2xl border-2 border-gray-200 focus:border-emerald-500 outline-none bg-white cursor-pointer min-h-[48px]"
               >
                 <option value="week">per week</option>
                 <option value="month">per month</option>
@@ -181,12 +181,12 @@ export default function InterviewForm({ onSubmit }) {
           </div>
           
           {/* Budget insight */}
-          <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-200">
-            <div className="flex gap-4">
-              <span className="text-3xl">💡</span>
+          <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-5 sm:p-6 border border-amber-200">
+            <div className="flex gap-3 sm:gap-4">
+              <span className="text-2xl sm:text-3xl">💡</span>
               <div>
-                <h4 className="font-semibold text-amber-800 mb-1">Smart Budgeting</h4>
-                <p className="text-amber-700 text-sm leading-relaxed">
+                <h4 className="font-semibold text-amber-800 mb-1 text-sm sm:text-base">Smart Budgeting</h4>
+                <p className="text-amber-700 text-xs sm:text-sm leading-relaxed">
                   We'll use batch cooking and cross-utilization to stretch every dollar. 
                   Seasonal produce and smart substitutions help maximize nutrition without breaking the bank.
                 </p>
@@ -212,7 +212,7 @@ export default function InterviewForm({ onSubmit }) {
               value={form.favorites}
               onChange={(e) => updateForm('favorites', e.target.value)}
               placeholder="e.g., chicken, spinach, rice, eggs, berries, avocado, salmon..."
-              className="w-full px-5 py-4 text-lg rounded-2xl border-2 border-gray-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 outline-none transition-all bg-white resize-none h-32"
+              className="w-full px-4 sm:px-5 py-3 sm:py-4 text-base sm:text-lg rounded-2xl border-2 border-gray-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 outline-none transition-all bg-white resize-none h-28 sm:h-32"
             />
           </div>
           <div>
@@ -224,7 +224,7 @@ export default function InterviewForm({ onSubmit }) {
               value={form.dislikes}
               onChange={(e) => updateForm('dislikes', e.target.value)}
               placeholder="e.g., mushrooms, seafood, dairy (lactose intolerant), cilantro..."
-              className="w-full px-5 py-4 text-lg rounded-2xl border-2 border-gray-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 outline-none transition-all bg-white resize-none h-32"
+              className="w-full px-4 sm:px-5 py-3 sm:py-4 text-base sm:text-lg rounded-2xl border-2 border-gray-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 outline-none transition-all bg-white resize-none h-28 sm:h-32"
             />
           </div>
         </div>
@@ -242,17 +242,17 @@ export default function InterviewForm({ onSubmit }) {
               key={s.value}
               type="button"
               onClick={() => updateForm('cookingStyle', s.value)}
-              className={`w-full p-6 rounded-2xl border-2 text-left transition-all duration-200 ${
+              className={`w-full p-5 sm:p-6 rounded-2xl border-2 text-left transition-all duration-200 min-h-[80px] ${
                 form.cookingStyle === s.value 
                   ? 'border-emerald-500 bg-emerald-50 shadow-lg shadow-emerald-500/20' 
                   : 'border-gray-200 hover:border-gray-300 hover:shadow-md bg-white'
               }`}
             >
-              <div className="flex items-center gap-4">
-                <span className="text-4xl">{s.emoji}</span>
+              <div className="flex items-center gap-3 sm:gap-4">
+                <span className="text-3xl sm:text-4xl">{s.emoji}</span>
                 <div>
-                  <h3 className="font-semibold text-gray-800 text-lg">{s.label}</h3>
-                  <p className="text-gray-500 mt-1">{s.desc}</p>
+                  <h3 className="font-semibold text-gray-800 text-base sm:text-lg">{s.label}</h3>
+                  <p className="text-gray-500 mt-1 text-sm sm:text-base">{s.desc}</p>
                 </div>
               </div>
             </button>
@@ -272,14 +272,14 @@ export default function InterviewForm({ onSubmit }) {
               key={c.value}
               type="button"
               onClick={() => updateForm('cuisine', c.value)}
-              className={`p-5 rounded-2xl border-2 text-center transition-all duration-200 ${
+              className={`p-4 sm:p-5 rounded-2xl border-2 text-center transition-all duration-200 min-h-[80px] flex flex-col items-center justify-center ${
                 form.cuisine === c.value 
                   ? 'border-emerald-500 bg-emerald-50 shadow-lg shadow-emerald-500/20' 
                   : 'border-gray-200 hover:border-gray-300 hover:shadow-md bg-white'
               }`}
             >
-              <span className="text-3xl block mb-2">{c.emoji}</span>
-              <span className="font-medium text-gray-800">{c.label}</span>
+              <span className="text-2xl sm:text-3xl block mb-2">{c.emoji}</span>
+              <span className="font-medium text-gray-800 text-sm sm:text-base">{c.label}</span>
             </button>
           ))}
         </div>
@@ -306,10 +306,10 @@ export default function InterviewForm({ onSubmit }) {
   return (
     <div className="bg-white rounded-3xl shadow-2xl shadow-gray-200/50 overflow-hidden border border-gray-100">
       {/* Progress Bar */}
-      <div className="bg-gray-50 px-8 py-5 border-b border-gray-100">
+      <div className="bg-gray-50 px-4 sm:px-8 py-4 sm:py-5 border-b border-gray-100">
         <div className="flex items-center justify-between mb-3">
-          <span className="text-sm font-medium text-gray-500">Step {step + 1} of {steps.length}</span>
-          <span className="text-sm text-emerald-600 font-medium">{Math.round(((step + 1) / steps.length) * 100)}% complete</span>
+          <span className="text-xs sm:text-sm font-medium text-gray-500">Step {step + 1} of {steps.length}</span>
+          <span className="text-xs sm:text-sm text-emerald-600 font-medium">{Math.round(((step + 1) / steps.length) * 100)}% complete</span>
         </div>
         <div className="flex gap-2">
           {steps.map((_, i) => (
@@ -324,29 +324,29 @@ export default function InterviewForm({ onSubmit }) {
       </div>
 
       {/* Form Content */}
-      <div className="p-8 md:p-10">
+      <div className="p-5 sm:p-8 md:p-10">
         {/* Header */}
-        <div className="flex items-start gap-5 mb-8">
-          <div className="w-14 h-14 bg-emerald-100 rounded-2xl flex items-center justify-center flex-shrink-0">
-            <Icon className="w-7 h-7 text-emerald-600" />
+        <div className="flex items-start gap-4 sm:gap-5 mb-6 sm:mb-8">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 bg-emerald-100 rounded-2xl flex items-center justify-center flex-shrink-0">
+            <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-emerald-600" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-gray-800">{currentStep.title}</h2>
-            <p className="text-gray-500 mt-1">{currentStep.subtitle}</p>
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800">{currentStep.title}</h2>
+            <p className="text-sm sm:text-base text-gray-500 mt-1">{currentStep.subtitle}</p>
           </div>
         </div>
 
         {/* Step Content */}
-        <div className="mb-10">
+        <div className="mb-8 sm:mb-10">
           {currentStep.content}
         </div>
 
         {/* Navigation */}
-        <div className="flex justify-between items-center pt-6 border-t border-gray-100">
+        <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3 pt-6 border-t border-gray-100">
           <button
             type="button"
             onClick={() => setStep(step - 1)}
-            className={`flex items-center gap-2 px-6 py-3 rounded-xl text-gray-600 hover:bg-gray-100 transition-all font-medium ${
+            className={`flex items-center justify-center gap-2 px-5 sm:px-6 py-3 rounded-xl text-gray-600 hover:bg-gray-100 transition-all font-medium min-h-[44px] ${
               step === 0 ? 'invisible' : ''
             }`}
           >
@@ -354,12 +354,12 @@ export default function InterviewForm({ onSubmit }) {
             Back
           </button>
           
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
             {/* Save Profile Button */}
             <button
               type="button"
               onClick={saveProfile}
-              className={`flex items-center gap-2 px-5 py-3 rounded-xl font-medium transition-all ${
+              className={`flex items-center justify-center gap-2 px-4 sm:px-5 py-3 rounded-xl font-medium transition-all min-h-[44px] ${
                 profileSaved 
                   ? 'bg-emerald-100 text-emerald-700' 
                   : 'bg-gray-100 hover:bg-gray-200 text-gray-600'
@@ -382,7 +382,7 @@ export default function InterviewForm({ onSubmit }) {
               type="button"
               onClick={handleNext}
               disabled={!canProceed}
-              className={`flex items-center gap-3 px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-200 ${
+              className={`flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg transition-all duration-200 min-h-[44px] ${
                 canProceed 
                   ? 'bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-500/30 hover:shadow-xl hover:shadow-emerald-500/40' 
                   : 'bg-gray-200 text-gray-400 cursor-not-allowed'

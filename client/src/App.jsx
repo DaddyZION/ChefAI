@@ -118,33 +118,33 @@ function App() {
           <div className="flex-1 flex items-center justify-center px-6 py-16">
             <div className="max-w-4xl text-center">
               {/* Logo */}
-              <div className="flex justify-center mb-10">
-                <div className="w-28 h-28 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-3xl flex items-center justify-center float-animation shadow-2xl shadow-emerald-500/40">
-                  <ChefHat className="w-16 h-16 text-white" />
+              <div className="flex justify-center mb-8 sm:mb-10">
+                <div className="w-20 h-20 sm:w-28 sm:h-28 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-3xl flex items-center justify-center float-animation shadow-2xl shadow-emerald-500/40">
+                  <ChefHat className="w-12 h-12 sm:w-16 sm:h-16 text-white" />
                 </div>
               </div>
               
-              <h1 className="text-5xl md:text-7xl font-bold text-gray-800 mb-4 tracking-tight">
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-gray-800 mb-4 tracking-tight">
                 Chef<span className="text-emerald-500">AI</span>
               </h1>
-              <p className="text-xl md:text-2xl text-gray-500 mb-3 font-light">
+              <p className="text-lg sm:text-xl md:text-2xl text-gray-500 mb-3 font-light">
                 High Nutrient Density on a Budget
               </p>
-              <p className="text-gray-400 mb-12 max-w-2xl mx-auto text-lg">
+              <p className="text-gray-400 mb-8 sm:mb-12 max-w-2xl mx-auto text-base sm:text-lg">
                 Get personalized weekly meal plans crafted by AI, focused on maximizing nutrition while respecting your budget and taste preferences.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
                 <button 
                   onClick={() => setView('form')}
-                  className="btn-primary flex items-center justify-center gap-3 text-lg"
+                  className="btn-primary flex items-center justify-center gap-3 text-base sm:text-lg min-h-[56px]"
                 >
-                  <Plus className="w-6 h-6" />
+                  <Plus className="w-5 h-5 sm:w-6 sm:h-6" />
                   Create New Plan
                 </button>
                 <button 
                   onClick={() => setView('saved')}
-                  className="btn-secondary flex items-center justify-center gap-3 text-lg"
+                  className="btn-secondary flex items-center justify-center gap-3 text-base sm:text-lg min-h-[56px]"
                 >
                   <BookOpen className="w-5 h-5" />
                   Saved Plans ({savedPlans.length})
@@ -152,16 +152,16 @@ function App() {
               </div>
 
               {/* Features */}
-              <div className="grid md:grid-cols-3 gap-6 mt-20">
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mt-12 sm:mt-20">
                 {[
                   { icon: '🥗', title: 'Nutrient Dense', desc: 'Maximized vitamins & minerals per calorie' },
                   { icon: '💰', title: 'Budget Friendly', desc: 'Stays within your weekly spending limit' },
                   { icon: '♻️', title: 'Zero Waste', desc: 'Smart cross-utilization of ingredients' },
                 ].map((f, i) => (
-                  <div key={i} className="bg-white rounded-2xl p-8 shadow-lg shadow-gray-200/50 border border-gray-100 hover:shadow-xl transition-shadow">
-                    <div className="text-5xl mb-4">{f.icon}</div>
-                    <h3 className="font-bold text-gray-800 text-lg mb-2">{f.title}</h3>
-                    <p className="text-gray-500">{f.desc}</p>
+                  <div key={i} className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg shadow-gray-200/50 border border-gray-100 hover:shadow-xl transition-shadow">
+                    <div className="text-4xl sm:text-5xl mb-3 sm:mb-4">{f.icon}</div>
+                    <h3 className="font-bold text-gray-800 text-base sm:text-lg mb-2">{f.title}</h3>
+                    <p className="text-sm sm:text-base text-gray-500">{f.desc}</p>
                   </div>
                 ))}
               </div>
@@ -171,11 +171,11 @@ function App() {
       )}
 
       {view === 'form' && (
-        <div className="min-h-screen py-12 px-4">
+        <div className="min-h-screen py-6 sm:py-12 px-4">
           <div className="max-w-3xl mx-auto">
             <button 
               onClick={() => setView('home')}
-              className="flex items-center gap-2 text-gray-500 hover:text-gray-800 mb-8 transition-colors font-medium"
+              className="flex items-center gap-2 text-gray-500 hover:text-gray-800 mb-6 sm:mb-8 transition-colors font-medium min-h-[44px] -ml-2 pl-2"
             >
               <ArrowLeft className="w-5 h-5" />
               Back to Home
@@ -199,19 +199,19 @@ function App() {
       {view === 'loading' && <LoadingScreen />}
 
       {view === 'result' && currentPlan && (
-        <div className="min-h-screen py-8 px-4">
+        <div className="min-h-screen py-6 sm:py-8 px-4">
           <div className="max-w-6xl mx-auto">
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 mb-4 sm:mb-6">
               <button 
                 onClick={() => setView('home')}
-                className="flex items-center gap-2 text-sage-600 hover:text-sage-800 transition-colors"
+                className="flex items-center gap-2 text-sage-600 hover:text-sage-800 transition-colors min-h-[44px] -ml-2 pl-2"
               >
                 <ArrowLeft className="w-4 h-4" />
                 Back to Home
               </button>
               <button
                 onClick={() => { setCurrentPlan(null); setView('form'); }}
-                className="btn-secondary flex items-center gap-2"
+                className="btn-secondary flex items-center gap-2 w-full sm:w-auto justify-center min-h-[44px]"
               >
                 <Plus className="w-4 h-4" />
                 New Plan
@@ -228,11 +228,11 @@ function App() {
       )}
 
       {view === 'saved' && (
-        <div className="min-h-screen py-8 px-4">
+        <div className="min-h-screen py-6 sm:py-8 px-4">
           <div className="max-w-4xl mx-auto">
             <button 
               onClick={() => setView('home')}
-              className="flex items-center gap-2 text-sage-600 hover:text-sage-800 mb-6 transition-colors"
+              className="flex items-center gap-2 text-sage-600 hover:text-sage-800 mb-4 sm:mb-6 transition-colors min-h-[44px] -ml-2 pl-2"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Home

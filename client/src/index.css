@@ -12,11 +12,13 @@ body {
 }
 
 .btn-primary {
-  @apply bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-200 shadow-lg shadow-emerald-500/25 hover:shadow-xl hover:shadow-emerald-500/30 active:scale-[0.98];
+  @apply bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-4 px-6 sm:px-8 rounded-xl transition-all duration-200 shadow-lg shadow-emerald-500/25 hover:shadow-xl hover:shadow-emerald-500/30 active:scale-[0.98];
+  min-height: 48px; /* Ensure minimum touch target size */
 }
 
 .btn-secondary {
-  @apply bg-white hover:bg-gray-50 text-gray-700 font-medium py-4 px-8 rounded-xl border-2 border-gray-200 hover:border-gray-300 transition-all duration-200;
+  @apply bg-white hover:bg-gray-50 text-gray-700 font-medium py-4 px-6 sm:px-8 rounded-xl border-2 border-gray-200 hover:border-gray-300 transition-all duration-200;
+  min-height: 48px; /* Ensure minimum touch target size */
 }
 
 .card {
@@ -24,11 +26,13 @@ body {
 }
 
 .input-field {
-  @apply w-full px-5 py-4 text-lg rounded-2xl border-2 border-gray-200 bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 outline-none transition-all duration-200;
+  @apply w-full px-4 sm:px-5 py-3 sm:py-4 text-base sm:text-lg rounded-2xl border-2 border-gray-200 bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 outline-none transition-all duration-200;
+  min-height: 48px; /* Ensure minimum touch target size */
 }
 
 .select-field {
-  @apply w-full px-5 py-4 text-lg rounded-2xl border-2 border-gray-200 bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 outline-none transition-all duration-200 cursor-pointer;
+  @apply w-full px-4 sm:px-5 py-3 sm:py-4 text-base sm:text-lg rounded-2xl border-2 border-gray-200 bg-white focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 outline-none transition-all duration-200 cursor-pointer;
+  min-height: 48px; /* Ensure minimum touch target size */
 }
 
 @keyframes float {
