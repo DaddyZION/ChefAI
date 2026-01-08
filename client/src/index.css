@@ -11,6 +11,16 @@ body {
   @apply bg-gradient-to-br from-gray-50 via-white to-emerald-50/30 text-gray-800 min-h-screen;
 }
 
+/* Hide scrollbar for tabs on mobile but keep functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
+}
+
 .btn-primary {
   @apply bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-4 px-6 sm:px-8 rounded-xl transition-all duration-200 shadow-lg shadow-emerald-500/25 hover:shadow-xl hover:shadow-emerald-500/30 active:scale-[0.98];
   min-height: 48px; /* Ensure minimum touch target size */
