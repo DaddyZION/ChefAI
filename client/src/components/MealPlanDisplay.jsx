@@ -149,8 +149,7 @@ export default function MealPlanDisplay({ plan, profile, onSave }) {
                 }`}
               >
                 <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span className="hidden xs:inline">{tab.label}</span>
-                <span className="xs:hidden">{tab.label.split(' ')[0]}</span>
+                <span>{tab.label}</span>
               </button>
             );
           })}
@@ -322,9 +321,9 @@ export default function MealPlanDisplay({ plan, profile, onSave }) {
                   {/* Weekly Items */}
                   {plan.shoppingList.weekly && (
                     <div>
-                      <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-3 sm:mb-4 flex items-center gap-2 sm:gap-3 flex-wrap">
+                      <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-800 mb-3 sm:mb-4 flex items-center gap-2 sm:gap-3 flex-wrap">
                         <span className="bg-emerald-100 text-emerald-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">🛒 Weekly</span>
-                        <span className="text-sm sm:text-xl">Fresh items to buy each week</span>
+                        <span className="text-sm sm:text-base md:text-lg">Fresh items to buy each week</span>
                       </h3>
                       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                         {Object.entries(plan.shoppingList.weekly).map(([category, items]) => (
@@ -337,9 +336,9 @@ export default function MealPlanDisplay({ plan, profile, onSave }) {
                   {/* Monthly Bulk Items */}
                   {plan.shoppingList.monthlyBulk && (
                     <div>
-                      <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-3 sm:mb-4 flex items-center gap-2 sm:gap-3 flex-wrap">
+                      <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-800 mb-3 sm:mb-4 flex items-center gap-2 sm:gap-3 flex-wrap">
                         <span className="bg-blue-100 text-blue-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">📦 Monthly Bulk</span>
-                        <span className="text-sm sm:text-xl">Buy in bulk once a month for savings</span>
+                        <span className="text-sm sm:text-base md:text-lg">Buy in bulk once a month for savings</span>
                       </h3>
                       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                         {Object.entries(plan.shoppingList.monthlyBulk).map(([category, items]) => (
@@ -352,9 +351,9 @@ export default function MealPlanDisplay({ plan, profile, onSave }) {
                   {/* Monthly Regular Items */}
                   {plan.shoppingList.monthlyRegular && (
                     <div>
-                      <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-3 sm:mb-4 flex items-center gap-2 sm:gap-3 flex-wrap">
+                      <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-800 mb-3 sm:mb-4 flex items-center gap-2 sm:gap-3 flex-wrap">
                         <span className="bg-amber-100 text-amber-600 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">📅 Monthly</span>
-                        <span className="text-sm sm:text-xl">Items that last the whole month</span>
+                        <span className="text-sm sm:text-base md:text-lg">Items that last the whole month</span>
                       </h3>
                       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                         {Object.entries(plan.shoppingList.monthlyRegular).map(([category, items]) => (
